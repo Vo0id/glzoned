@@ -37,7 +37,7 @@ def main(attacker_id, pages, threads):
         for strong in soup.find('strong'):
             return strong
 
-    with concurrent.futures.ThreadPoolExecutor(max_workers=15) as e:
+    with concurrent.futures.ThreadPoolExecutor(max_workers=threads) as e:
         futures = {e.submit(load_s, j): j for j in mirror_id}
         for future in concurrent.futures.as_completed(futures):
             r_result = re.findall('http[s]?://.*?/', future.result())[0]
